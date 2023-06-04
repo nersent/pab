@@ -1,0 +1,8 @@
+{
+  "verbose": true,
+  "ignore": [".gradle", ".vscode", "bin", "node_modules", "gradle"],
+  "execMap": {
+    "rb": "ruby",
+    "pde": "processing --sketch={{pwd}} --run"
+  }
+}

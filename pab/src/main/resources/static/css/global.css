@@ -1,0 +1,102 @@
+:root {
+  --ui-font-family: "Inter",-apple-system,BlinkMacSystemFont,"Poppins","Segoe UI","Roboto","Oxygen","Ubuntu","Cantarell","Fira Sans","Droid Sans","Helvetica Neue",sans-serif;
+  --ui-input-border: rgba(0, 0, 0, 0.06);
+  --ui-input-border-hover: rgba(0, 0, 0, 0.12);
+  --ui-input-color: #000;
+  --ui-page-background: #f3f5f8;
+  --ui-page-color: #000;
+}
+
+a {
+  text-decoration: none;
+  font-size: inherit;
+  color: inherit;
+}
+
+body {
+  width: 100%;
+  height: 100%;
+  cursor: default;
+  margin: 0px;
+  padding: 0px;
+  background-color: var(--ui-page-background);
+  color: var(--ui-page-color);
+  font-size: 16px;
+  position: relative;
+  overflow-x: hidden;
+  font-family: var(--ui-font-family);
+  font-weight: 400;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.styled_input {
+  border: 1px solid var(--ui-input-border);
+  font-size: 14px;
+  color: var(--ui-input-color);
+  padding: 24px 16px;
+  outline: none;
+  border-radius: 8px;
+}
+
+.styled_input:hover, .styled_input:active {
+  border: 1px solid var(--ui-input-border-hover);
+}
+
+.styled_content {
+  --ui_content_lg_margin_x: 24px;
+  --ui_content_lg_width: 1536px;
+  width: calc(100% - calc(var(--ui_content_lg_margin_x) * 2));
+  max-width: var(--ui_content_lg_width);
+  margin: 0px auto;
+}
+
+.navbar {
+  width: 100%;
+  height: 64px;
+  background-color: #fff;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+}
+
+.navbar_logo {
+  font-size: 20px;
+  color: #000;
+}
+
+.navbar .styled_content {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.navbar_links {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  column-gap: 16px;
+}
+
+.navbar_logo, .navbar_link {
+  height: 100%;
+  padding: 0px 8px;
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 600;
+  transition: 0.15s color;
+}
+
+.navbar_logo a , .navbar_link a {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.navbar_logo:hover, .navbar_link:hover {
+  color: rgba(0, 0, 0, 1);
+}
+
+.navbar_link {
+  font-size: 14px;
+}
