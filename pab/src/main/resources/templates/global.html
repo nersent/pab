@@ -25,6 +25,7 @@
           <div id="nav_login" class="navbar_link"><a href="/auth/login">Login</a></div>
           <div id="nav_register" class="navbar_link"><a href="/auth/register">Register</a></div>
           <div id="nav_basket" class="navbar_link" hidden><a href="/basket">Basket</a></div>
+          <div id="nav_logout" class="navbar_link" hidden><a href="/api/auth/logout">Logout</a></div>
         </div>
       </div>
     </nav>
@@ -49,12 +50,14 @@
             "nav_login": document.getElementById("nav_login"),
             "nav_register": document.getElementById("nav_register"),
             "nav_basket": document.getElementById("nav_basket"),
+            "nav_logout": document.getElementById("nav_logout"),
           }
 
           if (userData != null) {
             navItems["nav_login"].hidden = true;
             navItems["nav_register"].hidden = true;
             navItems["nav_basket"].hidden = false;
+            navItems["nav_logout"].hidden = false;
           }
         };
 
