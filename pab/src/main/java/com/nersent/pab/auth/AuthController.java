@@ -26,4 +26,14 @@ public class AuthController {
       return ResponseEntity.status(401).body("Invalid username or password");
     }
   }
+
+  @PostMapping("/register")
+  public ResponseEntity<?> register(@RequestBody RegisterUserDto data) {
+    try {
+      authService.register(data.getUsername(), data.getPassword());
+      return ResponseEntity.ok("Registered");
+    } catch (Exception e) {
+      return ResponseEntity.badRequest().body(e.getMessage());
+    }
+  }
 }
