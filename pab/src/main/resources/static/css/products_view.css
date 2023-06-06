@@ -67,4 +67,11 @@
 
 .product_actions_card_buy_now_button {
   width: 100%;
+  text-wrap: nowrap;
+}
+
+.product_actions_card_buy_now_button.disabled {
+  opacity: 0.2;
+  pointer-events: none;
+  cursor: none;
 }

@@ -26,11 +26,40 @@
       <div class="card product_actions_card">
         <div class="product_actions_card_price">69 420 <span class="product_actions_card_price_currency">USD</span></div>
         <a href="/auth/register"
-          ><div class="styled_button styled_primary_button .product_actions_card_buy_now_button">Add to basket</div></a
+          ><div id="basket_add" class="styled_button styled_primary_button product_actions_card_buy_now_button">Add to basket</div></a
         >
       </div>
     </div>
     <footer th:replace="global :: footer"></footer>
     <script th:replace="global :: js"></script>
+    <script th:fragment="js">
+      (async () => {
+        const getUserData = async () => {
+          const res = await fetch("/api/user/about", {
+            method: "POST",
+          });
+          const json = await res.json();
+          return json ?? null;
+        }
+
+        const onLoad = async () => {
+          let userData = null;
+          try {
+            userData = await getUserData();
+            
+          } catch (error) {
+            
+          }
+
+          if (userData == null) {
+            document.getElementById("basket_add").classList.add("disabled");
+          }
+        };
+
+        window.addEventListener("DOMContentLoaded", () => {
+          onLoad();
+        });
+      })();
+    </script>
   </body>
 </html>
