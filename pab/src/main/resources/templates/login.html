@@ -7,17 +7,81 @@
   </head>
   <body>
     <nav th:replace="global :: navbar"></nav>
-    <form class="auth_form styled_form">
+    <div class="auth_form styled_form">
       <div class="styled_form_header">Login</div>
       <div class="styled_form_container">
-        <input class="styled_input" type="text" placeholder="Username" />
-        <input class="styled_input" type="password" placeholder="Password" />
+        <input
+          id="username"
+          class="styled_input"
+          type="text"
+          placeholder="Username"
+        />
+        <input
+          id="password"
+          class="styled_input"
+          type="password"
+          placeholder="Password"
+        />
       </div>
       <div class="styled_form_footer">
-        <a href="/auth/register"><div class="styled_button styled_secondary_button auth_form_footer_secondary_button">Register</div></a>
-        <div class="styled_button styled_primary_button auth_form_footer_primary_button">Login</div>
+        <a href="/auth/register"
+          ><div
+            class="
+              styled_button styled_secondary_button
+              auth_form_footer_secondary_button
+            "
+          >
+            Register
+          </div></a
+        >
+        <button
+          id="submit"
+          class="
+            styled_button styled_primary_button
+            auth_form_footer_primary_button
+          "
+        >
+          Login
+        </button>
       </div>
-    </form>
+    </div>
     <footer th:replace="global :: footer"></footer>
+    <script>
+      const submitButton = document.getElementById("submit");
+      
+      submitButton.addEventListener('click', async () => {
+        const usernameInput = document.getElementById("username");
+        const passwordInput = document.getElementById("password");
+
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (username.length === 0 || password.length === 0) {
+          alert("Please fill in all fields");
+          return;
+        }
+
+        const data = {
+          username: username,
+          password: password
+        };
+
+        const res = await fetch("/api/auth/login", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json"
+          },
+          body: JSON.stringify(data)
+        });
+
+        if (res.status === 200) {
+          alert("Login successful");
+          window.location.href = "/";
+        } else {
+          alert("Invalid username or password");
+        }
+      });
+    </script>
+    <script th:replace="global :: js"></script>
   </body>
 </html>

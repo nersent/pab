@@ -58,6 +58,15 @@ public class AuthService {
         .sign(algorithm);
   }
 
+  public Cookie createJWTCookie(String jwt) {
+    Cookie jwtCookie = new Cookie(configService.getJwtCookieName(), jwt);
+    jwtCookie.setMaxAge(configService.getJwtExpirationTime());
+    jwtCookie.setPath("/");
+    jwtCookie.setHttpOnly(false);
+
+    return jwtCookie;
+  }
+
   public Optional<String> getJwtTokenFromReq(HttpServletRequest req) {
     Cookie[] cookies = req.getCookies();
 

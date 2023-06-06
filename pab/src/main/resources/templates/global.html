@@ -21,15 +21,47 @@
           <a href="/">PAB</a>
         </div>
         <div class="navbar_links">
-          <div class="navbar_link"><a href="/">Home</a></div>
-          <div class="navbar_link"><a href="/auth/login">Login</a></div>
-          <div class="navbar_link"><a href="/auth/register">Register</a></div>
+          <div id="nav_home" class="navbar_link"><a href="/">Home</a></div>
+          <div id="nav_login" class="navbar_link"><a href="/auth/login">Login</a></div>
+          <div id="nav_register" class="navbar_link"><a href="/auth/register">Register</a></div>
+          <div id="nav_basket" class="navbar_link" hidden><a href="/basket">Basket</a></div>
         </div>
       </div>
     </nav>
 
-    <footer class="footer" th:fragment="footer">
-      &copy; 2023 MP, ER, OL
-    </footer>
+    <footer class="footer" th:fragment="footer">&copy; 2023 MP, ER, OL</footer>
+
+    <script th:fragment="js">
+      (async () => {
+        const getUserData = async () => {
+          const res = await fetch("/api/user/about", {
+            method: "POST",
+          });
+          const json = await res.json();
+          return json ?? null;
+        }
+
+        const onLoad = async () => {
+          const userData = await getUserData();
+
+          const navItems = {
+            "nav_home": document.getElementById("nav_home"),
+            "nav_login": document.getElementById("nav_login"),
+            "nav_register": document.getElementById("nav_register"),
+            "nav_basket": document.getElementById("nav_basket"),
+          }
+
+          if (userData != null) {
+            navItems["nav_login"].hidden = true;
+            navItems["nav_register"].hidden = true;
+            navItems["nav_basket"].hidden = false;
+          }
+        };
+
+        window.addEventListener("DOMContentLoaded", () => {
+          onLoad();
+        });
+      })();
+    </script>
   </body>
 </html>

@@ -90,6 +90,10 @@ body {
   column-gap: 16px;
 }
 
+.navbar_link[hidden] {
+  display: none;
+}
+
 .navbar_logo, .navbar_link {
   height: 100%;
   padding: 0px 8px;

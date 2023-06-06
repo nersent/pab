@@ -29,13 +29,8 @@ public class AuthController {
     Optional<UserEntity> authenticatedUser = authService.authenticate(user.getUsername(), user.getPassword());
     if (authenticatedUser.isPresent()) {
       String jwt = authService.createJWT(authenticatedUser.get());
-
-      Cookie jwtCookie = new Cookie(configService.getJwtCookieName(), jwt);
-      jwtCookie.setMaxAge(configService.getJwtExpirationTime());
-      jwtCookie.setPath("/");
-      jwtCookie.setHttpOnly(false);
+      Cookie jwtCookie = authService.createJWTCookie(jwt);
       response.addCookie(jwtCookie);
-
       return ResponseEntity.ok(jwt);
     } else {
       return ResponseEntity.status(401).body("Invalid username or password");
@@ -43,9 +38,12 @@ public class AuthController {
   }
 
   @PostMapping("/register")
-  public ResponseEntity<?> register(@RequestBody RegisterUserDto data) {
+  public ResponseEntity<?> register(@RequestBody RegisterUserDto data, HttpServletResponse response) {
     try {
-      authService.register(data.getUsername(), data.getPassword());
+      UserEntity user = authService.register(data.getUsername(), data.getPassword());
+      String jwt = authService.createJWT(user);
+      Cookie jwtCookie = authService.createJWTCookie(jwt);
+      response.addCookie(jwtCookie);
       return ResponseEntity.ok("Registered");
     } catch (Exception e) {
       return ResponseEntity.badRequest().body(e.getMessage());
