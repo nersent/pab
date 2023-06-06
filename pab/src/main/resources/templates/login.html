@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+  <head>
+    <title>Login</title>
+    <link rel="stylesheet" th:href="@{/css/auth.css}" />
+    <head th:replace="global :: global-head"> </head>
+  </head>
+  <body>
+    <nav th:replace="global :: navbar"></nav>
+    <form class="auth_form styled_form">
+      <div class="styled_form_header">Login</div>
+      <div class="styled_form_container">
+        <input class="styled_input" type="text" placeholder="Username" />
+        <input class="styled_input" type="password" placeholder="Password" />
+      </div>
+      <div class="styled_form_footer">
+        <a href="/auth/register"><div class="styled_button styled_secondary_button auth_form_footer_secondary_button">Register</div></a>
+        <div class="styled_button styled_primary_button auth_form_footer_primary_button">Login</div>
+      </div>
+    </form>
+    <footer th:replace="global :: footer"></footer>
+  </body>
+</html>

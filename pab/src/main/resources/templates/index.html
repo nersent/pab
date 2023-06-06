@@ -1,9 +1,102 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <title>My Thymeleaf Page</title>
-</head>
-<body>
-    <h1 th:text="'Hello, Thymeleaf!'">Hello, World!</h1>
-</body>
+  <head>
+    <title>Products</title>
+    <link rel="stylesheet" th:href="@{/css/products.css}" />
+    <head th:replace="global :: global-head"> </head>
+  </head>
+  <body>
+    <nav th:replace="global :: navbar"></nav>
+    <div class="styled_content products_container">
+        <div class="product_item">
+            <img class="product_item_image" src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif">
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+        <div class="product_item">
+            <img class="product_item_image" src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif">
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+        <div class="product_item">
+            <img class="product_item_image" src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif">
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+        <div class="product_item">
+            <img class="product_item_image" src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif">
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+        <div class="product_item">
+            <img class="product_item_image" src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif">
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+        <div class="product_item">
+            <img class="product_item_image" src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif">
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+        <div class="product_item">
+            <div class="product_item_image" style='background-image: url("https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif")'></div>
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+        <div class="product_item">
+            <img class="product_item_image" src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif">
+            <div class="product_item_content">
+                <div class="product_item_title">
+                    Xd gowno
+                </div>
+                <div class="product_item_price">
+                    512 zł
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer th:replace="global :: footer"></footer>
+  </body>
 </html>

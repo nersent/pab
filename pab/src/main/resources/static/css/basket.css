@@ -1,0 +1,111 @@
+.basket_content {
+  display: flex;
+  --product-item-content-padding: 16px;
+  column-gap: var(--product-item-content-padding);
+  margin-top: var(--ui-navbar-content-offset);
+  --ui_content_lg_width: 1024px !important;
+}
+
+.card {
+  background-color: #fff;
+  border-radius: 12px;
+  height: fit-content;
+}
+
+.products_container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--product-item-content-padding);
+}
+
+.product_item {
+  width: 100%;
+  display: flex;
+  border-radius: 24px;
+  transition: 0.15s background-color;
+  align-items: center;
+}
+
+.product_item:hover {
+  background-color: rgba(0, 0, 0, 0.06);
+}
+
+.product_item:hover .product_item_title {
+  color: #000;
+}
+
+.product_item_image {
+  margin-left: var(--product-item-content-padding);
+  width: 96px;
+  margin-top: var(--product-item-content-padding);
+  object-fit: scale-down;
+}
+
+.product_item_content {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-items: center;
+  padding: var(--product-item-content-padding);
+}
+
+.product_item_title {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.8);
+  transition: 0.15s color;
+}
+
+.product_item_price {
+  font-size: 14px;
+  margin-top: 6px;
+}
+
+.product_item_delete {
+  width: 32px;
+  height: 32px;
+  background-size: 16px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: url("/icons/close.svg");
+  transition: 0.15s background-color;
+  margin-right: var(--product-item-content-padding);
+  border-radius: 100%;
+  flex-shrink: 0;
+}
+
+.product_item_delete:hover {
+  background-color: rgba(0, 0, 0, 0.12);
+}
+
+.checkout_card {
+  display: flex;
+  flex-direction: column;
+  padding: var(--product-item-content-padding);
+}
+
+.checkout_card_sum_container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: var(--product-item-content-padding);
+  align-items: center;
+  column-gap: 32px;
+}
+
+.checkout_card_label {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.checkout_card_sum {
+  font-size: 20px;
+  font-weight: 500;
+  text-wrap: nowrap;
+}
+
+.checkout_card_sum_price_currency {
+  font-size: 14px;
+  color: #000;
+}
+
+.buy_now_button {}

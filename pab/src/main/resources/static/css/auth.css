@@ -1,0 +1,11 @@
+.styled_form_footer_secondary_button {
+  margin-right: auto;
+}
+
+.auth_form_footer_primary_button {
+  margin-left: auto;
+}
+
+.auth_form {
+  margin-top: var(--ui-navbar-content-offset);
+}

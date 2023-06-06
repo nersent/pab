@@ -4,23 +4,6 @@
     <title>Global Fragments</title>
   </head>
   <body>
-    <header th:fragment="navbar">
-      <nav class="navbar">
-        <div class="styled_content">
-          <div class="navbar_logo">
-            <!-- Your logo here -->
-            <a href="/">PAB</a>
-          </div>
-          <div class="navbar_links">
-            <div class="navbar_link"><a href="/">Home</a></div>
-            <div class="navbar_link"><a href="/about">About</a></div>
-            <div class="navbar_link"><a href="/contact">Contact</a></div>
-            <div class="navbar_link"><a href="/login">Login</a></div>
-          </div>
-        </div>
-      </nav>
-    </header>
-
     <head th:fragment="global-head">
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -30,5 +13,23 @@
       />
       <link rel="stylesheet" th:href="@{/css/global.css}" />
     </head>
+
+    <nav class="navbar" th:fragment="navbar">
+      <div class="styled_content">
+        <div class="navbar_logo">
+          <!-- Your logo here -->
+          <a href="/">PAB</a>
+        </div>
+        <div class="navbar_links">
+          <div class="navbar_link"><a href="/">Home</a></div>
+          <div class="navbar_link"><a href="/auth/login">Login</a></div>
+          <div class="navbar_link"><a href="/auth/register">Register</a></div>
+        </div>
+      </div>
+    </nav>
+
+    <footer class="footer" th:fragment="footer">
+      &copy; 2023 MP, ER, OL
+    </footer>
   </body>
 </html>
