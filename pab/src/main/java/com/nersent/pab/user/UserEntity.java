@@ -25,6 +25,10 @@ public class UserEntity {
     return username;
   }
 
+  public Long getId() {
+    return id;
+  }
+
   public void setUsername(String username) {
     this.username = username;
   }
