@@ -4,7 +4,7 @@ const register = async () => {
   const res = await axios.post(
     `http://localhost:8080/api/auth/register`,
     {
-      username: "dupa",
+      username: "test",
       password: "test",
     },
     {
@@ -21,7 +21,7 @@ const login = async (verbose  = true) => {
   const res = await axios.post(
     `http://localhost:8080/api/auth/login`,
     {
-      username: "dupa",
+      username: "test",
       password: "test",
     },
     {
