@@ -8,104 +8,14 @@
   <body>
     <nav th:replace="global :: navbar"></nav>
     <div class="styled_content basket_content">
-      <div class="card products_container">
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-          <div class="product_item_delete">
-            
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-          <div class="product_item_delete">
-            
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-          <div class="product_item_delete">
-            
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-          <div class="product_item_delete">
-            
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-          <div class="product_item_delete">
-            
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-          <div class="product_item_delete">
-            
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-          <div class="product_item_delete">
-
-          </div>
-        </div>
+      <div id="products" class="card products_container">
+        No items in basket
       </div>
       <div class="card checkout_card">
         <div class="checkout_card_sum_container">
           <div class="checkout_card_label">Sum</div>
           <div class="checkout_card_sum">
-            5000
+            0
             <span class="checkout_card_sum_price_currency">USD</span>
           </div>
         </div>
@@ -122,5 +32,72 @@
     </div>
     <footer th:replace="global :: footer"></footer>
     <script th:replace="global :: js"></script>
+
+    <script>
+      (async () => {
+        const response = await fetch("/api/basket/", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        });
+        const data = await response.json();
+        
+        const products = document.getElementById("products");
+        if (data.length > 0) {
+          products.innerText = "";
+        }
+
+        let totalCost = 0;
+
+        data.forEach((product) => {
+          const productItem = document.createElement("div");
+          productItem.classList.add("product_item");
+
+          const productItemImage = document.createElement("img");
+          productItemImage.classList.add("product_item_image");
+          productItemImage.src = product.image;
+
+          const productItemContent = document.createElement("div");
+          productItemContent.classList.add("product_item_content");
+
+          const productItemTitle = document.createElement("div");
+          productItemTitle.classList.add("product_item_title");
+          productItemTitle.innerText = product.name;
+
+          const productItemPrice = document.createElement("div");
+          productItemPrice.classList.add("product_item_price");
+          productItemPrice.innerText = product.price;
+
+          const productItemDelete = document.createElement("div");
+          productItemDelete.classList.add("product_item_delete");
+          productItemDelete.onclick = async () => {
+            await fetch(`/api/basket/${product.id}`, {
+              method: "DELETE",
+              headers: {
+                "Content-Type": "application/json",
+              },
+            });
+            window.location.reload();
+          };
+
+          productItemContent.appendChild(productItemTitle);
+          productItemContent.appendChild(productItemPrice);
+
+          productItem.appendChild(productItemImage);
+          productItem.appendChild(productItemContent);
+          productItem.appendChild(productItemDelete);
+
+          products.appendChild(productItem);
+
+          totalCost += product.price;
+        });
+
+        const checkoutCardSum = document.querySelector(
+          ".checkout_card_sum"
+        );
+        checkoutCardSum.innerText = totalCost;
+      })();
+    </script>
   </body>
 </html>
