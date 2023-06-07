@@ -24,6 +24,10 @@ public class UserProductLinkService {
     return userProductLinkRepository.findByUserIdAndProductId(userId, productId);
   }
 
+  public List<UserProductLinkEntity> getAll() {
+    return userProductLinkRepository.findAll();
+  } 
+
   public void save(UserProductLinkEntity userProductLink) {
     userProductLinkRepository.save(userProductLink);
   }

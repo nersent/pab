@@ -1,101 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>Products</title>
-    <link rel="stylesheet" th:href="@{/css/products.css}" />
-    <link rel="stylesheet" th:href="@{/css/admin_view.css}" />
-    <head th:replace="global :: global-head"> </head>
-  </head>
-  <body>
-    <nav th:replace="global :: navbar"></nav>
-    <div class="styled_content admin_view_products_container">
-      <div class="admin_view_products_header">User: <strong>dupa</strong></div>
-      <div class="products_container">
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-        <div class="product_item">
-          <div
-            class="product_item_image"
-            style="
-              background-image: url('https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif');
-            "
-          ></div>
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-        <div class="product_item">
-          <img
-            class="product_item_image"
-            src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-          />
-          <div class="product_item_content">
-            <div class="product_item_title">Xd gowno</div>
-            <div class="product_item_price">512 zł</div>
-          </div>
-        </div>
-      </div>
+
+<head>
+  <title>Products</title>
+  <link rel="stylesheet" th:href="@{/css/products.css}" />
+  <link rel="stylesheet" th:href="@{/css/admin_view.css}" />
+
+  <head th:replace="global :: global-head"> </head>
+</head>
+
+<body>
+  <nav th:replace="global :: navbar"></nav>
+  <div class="styled_content admin_view_products_container">
+    <div id="products" class="products_container">
     </div>
-    <footer th:replace="global :: footer"></footer>
-    <script th:replace="global :: js"></script>
-  </body>
+  </div>
+  <footer th:replace="global :: footer"></footer>
+  <script th:replace="global :: js"></script>
+
+  <script>
+    (async () => {
+      const dtos = await fetch('/api/admin/list').then(response => response.json())
+
+      console.log(dtos)
+
+      const productsContainer = document.getElementById('products')
+
+      dtos.forEach(dto => {
+        const product = dto.product;
+
+        const productItem = document.createElement('a')
+        productItem.classList.add('product_item')
+        productItem.href = `/product?id=${product.id}`
+
+        const productItemImage = document.createElement('img')
+        productItemImage.classList.add('product_item_image')
+        productItemImage.src = product.image
+
+        const productItemContent = document.createElement('div')
+        productItemContent.classList.add('product_item_content')
+
+        const productItemTitle = document.createElement('div')
+        productItemTitle.classList.add('product_item_title')
+        productItemTitle.innerText = product.name
+
+        const productItemUsername = document.createElement('div')
+        productItemUsername.classList.add('product_item_title')
+        productItemUsername.innerText = `Username: ${dto.username}`;
+
+        const productItemPrice = document.createElement('div')
+        productItemPrice.classList.add('product_item_price')
+        productItemPrice.innerText = product.price
+
+        productItemContent.appendChild(productItemTitle)
+        productItemContent.appendChild(productItemUsername)
+        productItemContent.appendChild(productItemPrice)
+
+        productItem.appendChild(productItemImage)
+        productItem.appendChild(productItemContent)
+
+        productsContainer.appendChild(productItem)
+      })
+    })();
+  </script>
+</body>
+
 </html>

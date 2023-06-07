@@ -1,5 +1,7 @@
 package com.nersent.pab.admin;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,9 +15,13 @@ import org.springframework.web.servlet.view.RedirectView;
 
 import com.nersent.pab.auth.AuthService;
 import com.nersent.pab.config.ConfigService;
+import com.nersent.pab.product.ProductData;
+import com.nersent.pab.product.ProductService;
 import com.nersent.pab.user.UserAboutRes;
 import com.nersent.pab.user.UserEntity;
 import com.nersent.pab.user.UserRepository;
+import com.nersent.pab.user.products.UserProductLinkEntity;
+import com.nersent.pab.user.products.UserProductLinkService;
 
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Cookie;
@@ -33,6 +39,12 @@ public class AdminController {
   @Autowired
   private UserRepository userRepository;
 
+  @Autowired
+  private UserProductLinkService userProductLinkService;
+
+  @Autowired
+  private ProductService productService;
+
   @GetMapping("/make_admin")
   public ResponseEntity<Boolean> about(HttpServletRequest req, HttpServletResponse res) {
     Optional<UserEntity> user = authService.getUserFromReq(req);
@@ -48,5 +60,38 @@ public class AdminController {
     userEntity = userRepository.save(userEntity);
 
     return ResponseEntity.ok(true);
+  }
+
+  @GetMapping("/list")
+  public ResponseEntity<List<AdminProductDto>> list(HttpServletRequest req, HttpServletResponse res) {
+    try {
+      Optional<UserEntity> user = authService.getUserFromReq(req);
+
+      if (!user.isPresent() || !user.get().isAdmin()) {
+        return ResponseEntity.status(401).body(null);
+      }
+
+      List<UserProductLinkEntity> links = userProductLinkService.getAll();
+
+      List<ProductData> products = productService.getAll();
+      List<AdminProductDto> adminProducts = new ArrayList<>();
+
+      for (ProductData product : products) {
+        for (UserProductLinkEntity link : links) {
+          if (link.getProductId() == product.id) {
+            Optional<UserEntity> linkUser = userRepository.findById(link.getUserId());
+            if (!linkUser.isPresent()) {
+              continue;
+            }
+            adminProducts.add(new AdminProductDto(user.get().getUsername(), product));
+          }
+        }
+      }
+
+      return ResponseEntity.ok(adminProducts);
+    } catch (Exception e) {
+      e.printStackTrace();
+      return ResponseEntity.badRequest().body(null);
+    }
   }
 }
