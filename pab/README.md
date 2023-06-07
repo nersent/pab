@@ -1,4 +1,4 @@
-COJONES
+KOłJONES
 Dokumentacja dla programistów
 
 Eryk Rakowski, Olimpia Lewińska, Mikołaj Palkiewicz
