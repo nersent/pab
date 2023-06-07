@@ -1,65 +1,105 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <head>
-    <title>View Product</title>
-    <link rel="stylesheet" th:href="@{/css/products_view.css}" />
-    <head th:replace="global :: global-head"> </head>
-  </head>
-  <body>
-    <nav th:replace="global :: navbar"></nav>
-    <div class="styled_content hero">
-      <div class="card product_card">
-        <img
-          class="product_card_image"
-          src="https://media.tenor.com/xCc58fEqFREAAAAd/nerd-nerdy.gif"
-        />
-        <div class="card product_card_content">
-          <div class="product_card_title">Express.js</div>
-          <div class="product_card_desc">
-            Ekspres ciśnieniowy Siemens 1500W wytwarzający ciśnienie o mocy 19
-            Bar. Posiada funkcje: Spienianie mleka, Wskaźnik poziomu wody,
-            Regulacja mocy kawy, Wskaźnik temperatury. Możliwa regulacja: Ilość
-            kawy, Moc kawy, Stopień zmielenia kawy, Temperatura kawy
-          </div>
+
+<head>
+  <title>View Product</title>
+  <link rel="stylesheet" th:href="@{/css/products_view.css}" />
+
+  <head th:replace="global :: global-head"> </head>
+</head>
+
+<body>
+  <nav th:replace="global :: navbar"></nav>
+  <div class="styled_content hero">
+    <div class="card product_card">
+      <img class="product_card_image" />
+      <div class="card product_card_content">
+        <div class="product_card_title"></div>
+        <div class="product_card_desc">
         </div>
       </div>
-      <div class="card product_actions_card">
-        <div class="product_actions_card_price">69 420 <span class="product_actions_card_price_currency">USD</span></div>
-        <a href="/auth/register"
-          ><div id="basket_add" class="styled_button styled_primary_button product_actions_card_buy_now_button">Add to basket</div></a
-        >
-      </div>
     </div>
-    <footer th:replace="global :: footer"></footer>
-    <script th:replace="global :: js"></script>
-    <script th:fragment="js">
-      (async () => {
-        const getUserData = async () => {
-          const res = await fetch("/api/user/about", {
-            method: "POST",
-          });
-          const json = await res.json();
-          return json ?? null;
+    <div class="card product_actions_card">
+      <div class="product_actions_card_price"><span class="product_actions_card_price_currency">USD</span></div>
+      <a href="">
+        <div id="basket_add" class="styled_button styled_primary_button product_actions_card_buy_now_button">Add to
+          basket</div>
+      </a>
+    </div>
+  </div>
+  <footer th:replace="global :: footer"></footer>
+  <script th:replace="global :: js"></script>
+  <script th:fragment="js">
+    (async () => {
+      const getUserData = async () => {
+        const res = await fetch("/api/user/about", {
+          method: "POST",
+        });
+        const json = await res.json();
+        return json ?? null;
+      }
+
+      const onLoad = async () => {
+        let userData = null;
+        try {
+          userData = await getUserData();
+
+        } catch (error) {
+
         }
 
-        const onLoad = async () => {
-          let userData = null;
-          try {
-            userData = await getUserData();
-            
-          } catch (error) {
-            
-          }
+        if (userData == null) {
+          document.getElementById("basket_add").classList.add("disabled");
+        }
+      };
 
-          if (userData == null) {
-            document.getElementById("basket_add").classList.add("disabled");
-          }
-        };
+      window.addEventListener("DOMContentLoaded", () => {
+        onLoad();
+      });
 
-        window.addEventListener("DOMContentLoaded", () => {
-          onLoad();
-        });
+      const urlParams = new URLSearchParams(window.location.search);
+      const productId = urlParams.get("id");
+
+      (async () => {
+        const product = await fetch(`/api/product/${productId}`).then((response) =>
+          response.json()
+        );
+
+        const productCard = document.querySelector(".product_card");
+        const productCardImage = productCard.querySelector(
+          ".product_card_image"
+        );
+        const productCardTitle = productCard.querySelector(
+          ".product_card_title"
+        );
+        const productCardDesc = productCard.querySelector(".product_card_desc");
+
+        productCardImage.src = product.image;
+        productCardTitle.innerText = product.name;
+        productCardDesc.innerText = product.description;
+
+        const productActionsCard = document.querySelector(
+          ".product_actions_card"
+        );
+        const productActionsCardPrice = productActionsCard.querySelector(
+          ".product_actions_card_price"
+        );
+        productActionsCardPrice.innerText = product.price;
+
+        document.getElementById("basket_add").onclick = (e) => {
+          e.preventDefault();
+
+          fetch(`/api/basket/add/${product.id}`, {
+            method: "POST",
+          }).then((response) => {
+            if (response.status === 200) {
+              window.location.href = "/basket";
+            }
+          });
+        }
       })();
-    </script>
-  </body>
+    })();
+  </script>
+</body>
+
 </html>
