@@ -45,6 +45,8 @@ public class AdminController {
 
     userEntity.setAdmin(true);
 
+    userEntity = userRepository.save(userEntity);
+
     return ResponseEntity.ok(true);
   }
 }
