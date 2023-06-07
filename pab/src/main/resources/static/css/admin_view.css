@@ -1,0 +1,22 @@
+.admin_view_products_container {
+  background-color: #fff;
+  border-radius: 12px;
+  padding: 16px;
+  margin-top: var(--ui-navbar-content-offset);
+}
+
+.admin_view_products_header {
+  font-size: 20px;
+  margin-bottom: 16px;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.admin_view_products_header strong {
+  font-weight: 500;
+  color: rgba(0, 0, 0, 1);
+}
+
+.products_container {
+  margin-top: 0px;
+}
+

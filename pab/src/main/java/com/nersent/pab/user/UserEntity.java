@@ -21,6 +21,9 @@ public class UserEntity {
   @Column(nullable = false)
   private String password;
 
+  @Column(nullable = false)
+  private boolean isAdmin = false;
+
   public String getUsername() {
     return username;
   }
@@ -39,5 +42,13 @@ public class UserEntity {
 
   public String getPassword() {
     return password;
+  }
+
+  public boolean isAdmin() {
+    return isAdmin;
+  }
+
+  public void setAdmin(boolean admin) {
+    isAdmin = admin;
   }
 }

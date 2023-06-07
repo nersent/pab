@@ -32,7 +32,9 @@ public class UserController {
       return ResponseEntity.status(401).body(null);
     }
 
-    UserAboutRes about = new UserAboutRes(user.get().getUsername(), user.get().getId());
+    UserEntity userEntity = user.get();
+
+    UserAboutRes about = new UserAboutRes(userEntity.getUsername(), userEntity.getId(), userEntity.isAdmin());
 
     return ResponseEntity.ok(about);
   }
